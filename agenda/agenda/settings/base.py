@@ -101,7 +101,4 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-es'
 
-TIME_ZONE = 'Europe/Madrid'
-
-USE_I18N = USE_L10N = USE_TZ = True
-USE_TZ = False
+TIME_ZONE = 'UTC'
