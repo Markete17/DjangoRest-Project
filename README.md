@@ -6,6 +6,7 @@ Enlaces a los otros proyectos de Django:
 
 **Índice**   
 1. [Configuración del proyecto](#id1)
+2. [Introducción a Serializers y ListAPIView](#id2)
 
 ## Configuración del proyecto<a name="id1"></a>
 
@@ -26,6 +27,7 @@ psycopg2-binary==2.9.5
 pytz==2019.3
 sqlparse==0.3.1
 Unipath==1.1
+djangorestframework==3.14.0
 ```
 
 - 2. <b>Instalar y configurar Postgres</b>
@@ -78,4 +80,48 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+```
+
+- 4. <b>Configuración Django Rest Framework</b>
+
+```console
+pip install djangorestframework
+pip install markdown       # Markdown support for the browsable API.
+pip install django-filter  # Filtering support
+```
+
+```python
+INSTALLED_APPS = [
+    ...
+    'rest_framework',
+]
+```
+
+## Introducción a Serializers y ListAPIView<a name="id2"></a>
+
+Es necesario tener una <b>clase serializadora</b>, es decir, la encargada de convertir el QuerySet en un objeto JSON para la respuesta REST.
+Por lo tanto, antes hay que crear en la app, el archivo <b>serializers.py</b>
+
+```python
+from rest_framework import serializers
+from .models import Person
+
+class PersonSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Person
+        fields = (
+            'id',
+            'full_name',
+            'job',
+            'email'
+        )
+```
+
+Y después en la Vista, utilizar ListAPIView para listar los objetos del modelo:
+
+```python
+class PersonListAPIView(ListAPIView):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
 ```

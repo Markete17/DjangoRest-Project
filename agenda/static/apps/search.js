@@ -6,7 +6,7 @@ new Vue({
   mounted() {
     var self = this;
     // cargamos lista de personas
-    axios.get('/api/persona/lista/')
+    axios.get('api/lista')
       .then(function (response) {
         self.listaPersonas = response.data;
       })
@@ -17,13 +17,23 @@ new Vue({
   methods: {
     buscar_persona: function(kword){
       var self = this;
-      axios.get('/api/persona/search/' + kword + '/')
+      if(kword!=''){
+      axios.get('api/search/' + kword + '/')
         .then(function (response) {
           self.listaPersonas = response.data;
         })
         .catch(function (error) {
           console.log(error);
         });
+      } else {
+        axios.get('api/lista')
+        .then(function (response) {
+          self.listaPersonas = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
     },
   },
   watch: {

@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es-es">
+<head>
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personas</title>
+</head>
+<body>
+    <input type="text" placeholder="buscar"/>
+    <ul>
+        {% for person in personas %}
+        
+        <li>
+            {{person.full_name}}
+        </li>
+
+        {% endfor %}
+    </ul>
+</body>
+</html>
